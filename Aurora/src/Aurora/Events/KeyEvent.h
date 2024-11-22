@@ -40,10 +40,10 @@ namespace Aurora{
 		int m_RepeatCount;
 	};
 
-	class AURORA_API KeyReleaseEvent :public KeyEvent
+	class AURORA_API KeyReleasedEvent :public KeyEvent
 	{
 	public:
-		KeyReleaseEvent(int keycode)
+		KeyReleasedEvent(int keycode)
 			:KeyEvent(keycode) {}
 
 	
@@ -51,10 +51,27 @@ namespace Aurora{
 		std::string ToString()const override
 		{
 			std::stringstream ss;
-			ss << "KeyReleaseEvent: " << m_KeyCode;
+			ss << "KeyReleasedEvent: " << m_KeyCode;
 			return ss.str();
 		}
 
 		EVENT_CLASS_TYPE(KeyPressed)
+	};
+
+	class AURORA_API KeyTypedEvent :public KeyEvent
+	{
+	public:
+		KeyTypedEvent(int keycode)
+			:KeyEvent(keycode) {}
+ 
+
+		std::string ToString()const override
+		{
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << m_KeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped)
 	};
 }

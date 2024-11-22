@@ -14,7 +14,7 @@ namespace Aurora {
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
-		KeyPressed, KeyReleased,
+		KeyPressed, KeyReleased,KeyTyped,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 
 	};
@@ -50,6 +50,10 @@ namespace Aurora {
 		inline bool IsInCategory(EventCategory category)
 		{
 			return GetCategoryFlags() & category;
+		}
+		inline bool IsHandled()
+		{
+			return m_Handled;
 		}
 	protected:
 		bool m_Handled = false;

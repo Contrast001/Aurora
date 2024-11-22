@@ -5,6 +5,9 @@
 #include "Aurora/Events/KeyEvent.h"
 #include "Aurora/Events/MouseEvent.h"
 
+#include "glad/glad.h"
+
+
 namespace Aurora{
 
 	static bool s_GLFWInitialized = false;
@@ -46,6 +49,8 @@ namespace Aurora{
 
 		m_Window = glfwCreateWindow((int)props.Width,(int)props.Height,m_Data.Title.c_str(),nullptr,nullptr);
 		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		AR_CORE_ASSERT(status, "Faild to initialize Glad!");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -82,7 +87,7 @@ namespace Aurora{
 				}
 				case GLFW_RELEASE:
 				{
-					KeyReleaseEvent event(key);
+					KeyReleasedEvent event(key);
 					data.EventCallback(event);
 					break;
 				}
@@ -94,7 +99,14 @@ namespace Aurora{
 				}
 			}
 		});
+		glfwSetCharCallback(m_Window,[](GLFWwindow* window,unsigned int keycode)
+		{
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			KeyTypedEvent event(keycode);
+			data.EventCallback(event);
 
+
+		}); 
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window ,int button,int action,int mods) 
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -109,7 +121,7 @@ namespace Aurora{
 				}
 				case GLFW_RELEASE:
 				{
-					MouseButtonReleaseEvent event(button);
+					MouseButtonReleasedEvent event(button);
 					data.EventCallback(event);
 					break;
 				}
@@ -128,7 +140,7 @@ namespace Aurora{
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-			MouseMoveEvent event((float)xPos, (float)yPos); 
+			MouseMovedEvent event((float)xPos, (float)yPos); 
 			data.EventCallback(event);
 		});
 	}

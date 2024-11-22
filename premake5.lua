@@ -11,8 +11,15 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Aurora/vendor/GLFW/include"
+IncludeDir["Glad"] = "Aurora/vendor/Glad/include"
+IncludeDir["ImGui"] = "Aurora/vendor/imgui"
+
 
 include "Aurora/vendor/GLFW"
+include "Aurora/vendor/Glad"
+include "Aurora/vendor/imgui"
+
+
 
 project "Aurora"
 	location "Aurora"
@@ -34,12 +41,18 @@ project "Aurora"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
+
+
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
+		"ImGui",
 		"opengl32.lib",
 		"dwmapi.lib"
 	}
@@ -53,7 +66,8 @@ project "Aurora"
 		defines
 		{
 			"AR_PLATFORM_WINDOWS",
-			"AR_BUILD_DLL"
+			"AR_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}	
 		
 		postbuildcommands
@@ -118,15 +132,18 @@ project "Sandbox"
 		
 	filter "configurations:Debug"
 		defines "AR_DEBUG"
+		buildoptions "/MDd"
 		--调试符号
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "AR_RELEASE"
+		buildoptions "/MD"
 		--优化
 		optimize "On"
 		 
 	filter "configurations:Dist"
 		defines "AR_DIST"
+		buildoptions "/MD"
 		--优化
 		optimize "On"
