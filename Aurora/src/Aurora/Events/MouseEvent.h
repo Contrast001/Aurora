@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Event.h"
 
@@ -21,7 +21,7 @@ namespace Aurora
 		}
 
 		EVENT_CLASS_TYPE(MouseMoved)
-		//ÊÂ¼şÀàĞÍ£ºÊäÈëÊÂ¼ş  ÊäÈëÉè±¸£ºÊó±ê
+		//äº‹ä»¶ç±»å‹ï¼šè¾“å…¥äº‹ä»¶  è¾“å…¥è®¾å¤‡ï¼šé¼ æ ‡
 		EVENT_CLASS_CATEGORY(EventCategoryMouse|EventCategoryInput)
 	private:
 		float m_MouseX, m_MouseY;

@@ -1,5 +1,8 @@
 #include "Aurora.h"
 
+#include "imgui/imgui.h"
+
+
 class ExampleLayer:public Aurora::Layer
 {
 public:
@@ -10,12 +13,25 @@ public:
 
 	void OnUpdate() override
 	{
-		AR_INFO("ExampleLayer::Update");
+		//AR_INFO("ExampleLayer::Update");
+		if (Aurora::Input::IsKeyPressed(AR_KEY_TAB))
+			AR_TRACE("TAB is Pressed!");
 	}
+	/*virtual void OnImGuiRender()override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("1111");
+		ImGui::ColorEdit4("",new float[4]);
+		ImGui::End();
+	}*/
 
 	void OnEvent(Aurora::Event& event)override
 	{
-		AR_TRACE("{0}",event.ToString());
+		if(event.GetEventType() == Aurora::EventType::KeyPressed)
+		{
+			Aurora::KeyPressedEvent& e = (Aurora::KeyPressedEvent&)event;
+			AR_TRACE("{0}",(char)e.GetKeyCode());
+		}
 	}
 };
 
@@ -25,7 +41,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Aurora::ImGuiLayer());
 	}
 	~Sandbox()
 	{

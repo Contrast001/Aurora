@@ -1,11 +1,12 @@
-#include "arpch.h"
+ï»¿#include "arpch.h"
 #include "WindowsWindow.h"
 
 #include "Aurora/Events/ApplicationEvent.h"
 #include "Aurora/Events/KeyEvent.h"
 #include "Aurora/Events/MouseEvent.h"
 
-#include "glad/glad.h"
+#include "Platform/OpenGL/OpenGLContext.h"
+
 
 
 namespace Aurora{
@@ -30,7 +31,7 @@ namespace Aurora{
 	{
 		Shutdown();
 	}
-	//³õÊ¼»¯
+	//åˆå§‹åŒ–
 	void WindowsWindow::Init(const WindowProps& props)
 	{
 		m_Data.Title = props.Title;
@@ -48,13 +49,15 @@ namespace Aurora{
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width,(int)props.Height,m_Data.Title.c_str(),nullptr,nullptr);
-		glfwMakeContextCurrent(m_Window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		AR_CORE_ASSERT(status, "Faild to initialize Glad!");
+		
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
+		
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
-		//ÉèÖÃ GLFW»Øµ÷º¯Êý Ê¹ÓÃlambda±í´ïÊ½
+		//è®¾ç½® GLFWå›žè°ƒå‡½æ•° ä½¿ç”¨lambdaè¡¨è¾¾å¼
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) 
 		{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -154,7 +157,7 @@ namespace Aurora{
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)

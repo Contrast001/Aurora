@@ -1,12 +1,12 @@
-#pragma once
+ï»¿#pragma once
 #include "arpch.h"
 #include "Aurora/Core.h"
 
 
 namespace Aurora {
-	//ÎÒÃÇµÄÊÂ¼şÔÚAuroraÖĞÊÇ×èÈûÊ½µÄ
-	//µ±ÊÂ¼ş·¢ÉúÊ±,Ëü»áÁ¢¼´ßÂµ÷¶È,²¢±ØĞëÁ¢¼´´¦Àí
-	//ÎÒÃÇĞèÒª½«ÊÂ¼ş»º´æÔÚÊÂ¼ş×ÜÏßÖĞ£¬ÕâÑùÎÒÃÇ¿ÉÒÔÔÚÊÂ¼ş´¦Àí½×¶ÎÆÚ¼ä½øĞĞ´¦Àí
+	//æˆ‘ä»¬çš„äº‹ä»¶åœ¨Auroraä¸­æ˜¯é˜»å¡å¼çš„
+	//å½“äº‹ä»¶å‘ç”Ÿæ—¶,å®ƒä¼šç«‹å³å‘—è°ƒåº¦,å¹¶å¿…é¡»ç«‹å³å¤„ç†
+	//æˆ‘ä»¬éœ€è¦å°†äº‹ä»¶ç¼“å­˜åœ¨äº‹ä»¶æ€»çº¿ä¸­ï¼Œè¿™æ ·æˆ‘ä»¬å¯ä»¥åœ¨äº‹ä»¶å¤„ç†é˜¶æ®µæœŸé—´è¿›è¡Œå¤„ç†
 
 	//enum
 	enum class EventType
@@ -18,8 +18,8 @@ namespace Aurora {
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 
 	};
-	//ÊÂ¼şÀà±ğ
-	//enum class Ê¹ÓÃÊ±ÓĞ×÷ÓÃÓòÏŞÖÆ,ĞèÒªEventType:: ÒıÓÃ
+	//äº‹ä»¶ç±»åˆ«
+	//enum class ä½¿ç”¨æ—¶æœ‰ä½œç”¨åŸŸé™åˆ¶,éœ€è¦EventType:: å¼•ç”¨
 	enum EventCategory
 	{
 		None = 0,
@@ -29,7 +29,7 @@ namespace Aurora {
 		EventCategoryMouse = BIT(3),
 		EventCategoryMouseButton = BIT(4)
 	};
-	//ºê¶¨Òå ×Ô¶¯»¯º¯ÊıÖØĞ´
+	//å®å®šä¹‰ è‡ªåŠ¨åŒ–å‡½æ•°é‡å†™
 #define EVENT_CLASS_TYPE(type)\
 						static EventType GetStaticType(){return EventType::type;}\
 						virtual EventType GetEventType()const override {return GetStaticType();}\
@@ -38,7 +38,7 @@ namespace Aurora {
 #define EVENT_CLASS_CATEGORY(category)\
 						virtual int GetCategoryFlags() const override {return category;}
 
-	//Ğé»ùÀà¶¨Òå
+	//è™šåŸºç±»å®šä¹‰
 	class AURORA_API Event
 	{
 		friend class EventDispatcher;
@@ -59,24 +59,24 @@ namespace Aurora {
 		bool m_Handled = false;
 	};
 
-	//ÊÂ¼ş·Ö·¢Æ÷
+	//äº‹ä»¶åˆ†å‘å™¨
 	class EventDispatcher
 	{
-		//´Ë´¦ÎªË½ÓĞEventFn,ÎªÒ»¸öº¯ÊıÖ¸Õë»òº¯Êı¶ÔÏó,·µ»ØµÄÊÇbool
+		//æ­¤å¤„ä¸ºç§æœ‰EventFn,ä¸ºä¸€ä¸ªå‡½æ•°æŒ‡é’ˆæˆ–å‡½æ•°å¯¹è±¡,è¿”å›çš„æ˜¯bool
 		template<typename T>
 		using EventFn = std::function<bool(T&)>;
 	public:
 		EventDispatcher(Event& event)
 			:m_Event(event) {}
 
-		//ÅÉ·¢ÊÂ¼ş
+		//æ´¾å‘äº‹ä»¶
 		template<typename T>
 		bool Dispatch(EventFn<T> func)
 		{
-			//¼ì²éµ±Ç°ÊÂ¼şÀàĞÍÊÇ·ñÓëTÀàĞÍÆ¥Åä
+			//æ£€æŸ¥å½“å‰äº‹ä»¶ç±»å‹æ˜¯å¦ä¸Tç±»å‹åŒ¹é…
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				//½«ÊÂ¼şµÄm_Handled±ê¼ÇÎª´¦Àí½á¹û
+				//å°†äº‹ä»¶çš„m_Handledæ ‡è®°ä¸ºå¤„ç†ç»“æœ
 				m_Event.m_Handled = func(*(T*)&m_Event);
 				return true;
 			}
@@ -85,4 +85,10 @@ namespace Aurora {
 	private:
 		Event& m_Event;
 	};
+
+	inline std::ostream& operator<<(std::ostream& os, const Event& e)
+	{
+		return os << e.ToString();
+	}
 }
+

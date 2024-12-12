@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Core.h"
 
@@ -6,6 +6,12 @@
 #include "Window.h"
 #include "Aurora/Events/ApplicationEvent.h"
 #include "Aurora/LayerStack.h"
+#include "Aurora/ImGui/ImGuiLayer.h"
+#include "Aurora/Renderer/Shader.h"
+#include "Aurora/Renderer/Buffer.h"
+#include "Aurora/Renderer/VertexArray.h"
+
+
 namespace Aurora {
 	class AURORA_API Application
 	{
@@ -26,10 +32,17 @@ namespace Aurora {
 		bool OnWindowClose(WindowCloseEvent& e); 
 	private:
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
+
+		std::shared_ptr<Shader> m_BlueShader;
+		std::shared_ptr<VertexArray> m_SquareVA;
+
 		static Application* s_Instance;
 	};
-	//ÔÚ¿Í»§¶Ë¶¨Òå
+	//åœ¨å®¢æˆ·ç«¯å®šä¹‰
 	Application* CreateApplication();
 }
