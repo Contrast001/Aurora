@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Aurora/Core/Timestep.h"
 #include "Aurora/Core.h"
 #include "Aurora/Events/Event.h"
 
@@ -12,7 +12,7 @@ namespace Aurora{
 
 		virtual void OnAttach(){}
 		virtual void OnDetach(){}
-		virtual void OnUpdate(){}
+		virtual void OnUpdate(Timestep ts){}
 		virtual void OnImGuiRender(){}
 		virtual void OnEvent(Event& event){}
 

@@ -1355,6 +1355,11 @@
     <ClInclude Include="src\Aurora\Renderer\Renderer.h" />
     <ClInclude Include="src\Aurora\Renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\Aurora\Renderer\RendererAPI.h" />
+    <ClInclude Include="src\Aurora\Renderer\RendererCommand.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Aurora\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Aurora\Core\Timestep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -1391,5 +1396,9 @@
     <ClCompile Include="src\Aurora\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Aurora\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\RendererCommand.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\OrthographicCamera.cpp" />
   </ItemGroup>
 </Project>

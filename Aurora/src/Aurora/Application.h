@@ -7,13 +7,11 @@
 #include "Aurora/Events/ApplicationEvent.h"
 #include "Aurora/LayerStack.h"
 #include "Aurora/ImGui/ImGuiLayer.h"
-#include "Aurora/Renderer/Shader.h"
-#include "Aurora/Renderer/Buffer.h"
-#include "Aurora/Renderer/VertexArray.h"
+#include "Aurora/Core/Timestep.h"
 
 
 namespace Aurora {
-	class AURORA_API Application
+	class Application
 	{
 	public:
 		Application();
@@ -35,12 +33,9 @@ namespace Aurora {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<Shader> m_BlueShader;
-		std::shared_ptr<VertexArray> m_SquareVA;
-
+		float m_LastFrameTime=0.0f;
+		
+	private:
 		static Application* s_Instance;
 	};
 	//在客户端定义
