@@ -17,6 +17,8 @@ IncludeDir["GLFW"] = "Aurora/vendor/GLFW/include"
 IncludeDir["Glad"] = "Aurora/vendor/Glad/include"
 IncludeDir["ImGui"] = "Aurora/vendor/imgui"
 IncludeDir["glm"] = "Aurora/vendor/glm"
+IncludeDir["stb_image"] = "Aurora/vendor/stb_image"
+
 
 
 
@@ -47,6 +49,8 @@ project "Aurora"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
@@ -61,7 +65,9 @@ project "Aurora"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
+
 
 	}
 

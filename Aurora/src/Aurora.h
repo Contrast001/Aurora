@@ -19,6 +19,7 @@
 
 #include "Aurora/Renderer/Buffer.h"
 #include "Aurora/Renderer/Shader.h"
+#include "Aurora/Renderer/Texture.h"
 #include "Aurora/Renderer/VertexArray.h"
 
 #include "Aurora/Renderer/OrthographicCamera.h"
