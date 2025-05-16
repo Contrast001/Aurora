@@ -78,7 +78,7 @@ public:
 				color = v_Color;
 			} 
 		)";
-		m_Shader.reset(Aurora::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader=Aurora::Shader::Create("VertexPosColor",vertexSrc, fragmentSrc);
 
 		//渲染一个quad
 		//顶点数据
@@ -130,7 +130,7 @@ public:
 
 		std::string flatColorShaderFragmentSrc = R"(
 			#version 330 core
-			
+			 
 			layout(location=0)out vec4 color;
 			
 			in vec3 v_Position;
@@ -141,17 +141,17 @@ public:
 				color = vec4(u_Color,1.0);
 			} 
 		)";
-		m_FlatColorShader.reset(Aurora::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+		m_FlatColorShader=Aurora::Shader::Create("FlatColor",flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
 
 		
-		m_TextureShader.reset(Aurora::Shader::Create("assets/shaders/Texture.glsl"));
+		auto textureShader=m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = Aurora::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_AuroraLogoTexture = Aurora::Texture2D::Create("assets/textures/Aurora.png");
 
 
-		std::dynamic_pointer_cast<Aurora::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Aurora::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<Aurora::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<Aurora::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Aurora::Timestep ts) override
@@ -199,10 +199,14 @@ public:
 			}
 			
 		}
+
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
+
 		m_Texture->Bind();
-		Aurora::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Aurora::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		m_AuroraLogoTexture->Bind();
-		Aurora::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Aurora::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		//三角形
 		//Aurora::Renderer::Submit(m_Shader, m_VertexArray);
@@ -221,10 +225,11 @@ public:
 	{
 	}
 private:
+	Aurora::ShaderLibrary m_ShaderLibrary;
 	Aurora::Ref<Aurora::Shader> m_Shader;
 	Aurora::Ref<Aurora::VertexArray> m_VertexArray;
 
-	Aurora::Ref<Aurora::Shader> m_FlatColorShader,m_TextureShader;
+	Aurora::Ref<Aurora::Shader> m_FlatColorShader;
 	Aurora::Ref<Aurora::VertexArray> m_SquareVA;
 
 	Aurora::Ref<Aurora::Texture2D> m_Texture,m_AuroraLogoTexture;
