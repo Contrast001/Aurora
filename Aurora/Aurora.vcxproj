@@ -162,6 +162,7 @@
     <ClInclude Include="src\Aurora\LayerStack.h" />
     <ClInclude Include="src\Aurora\Log.h" />
     <ClInclude Include="src\Aurora\MouseButtonCodes.h" />
+    <ClInclude Include="src\Aurora\OrthographicCameraController.h" />
     <ClInclude Include="src\Aurora\Renderer\Buffer.h" />
     <ClInclude Include="src\Aurora\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Aurora\Renderer\OrthographicCamera.h" />
@@ -606,6 +607,7 @@
     <ClCompile Include="src\Aurora\Layer.cpp" />
     <ClCompile Include="src\Aurora\LayerStack.cpp" />
     <ClCompile Include="src\Aurora\Log.cpp" />
+    <ClCompile Include="src\Aurora\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Aurora\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Renderer.cpp" />
