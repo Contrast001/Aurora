@@ -209,6 +209,12 @@ public:
 	void OnEvent(Aurora::Event& e )override
 	{
 		m_CameraController.OnEvent(e);
+		/*if(e.GetEventType()==Aurora::EventType::WindowResize)
+		{
+			auto& re = (Aurora::WindowResizeEvent&)e;
+			float zoom = (float)re.GetWidth() / 1280.0f;
+			m_CameraController.SetZoomLevel(zoom);
+		}*/
 	}
 private:
 	Aurora::ShaderLibrary m_ShaderLibrary;
