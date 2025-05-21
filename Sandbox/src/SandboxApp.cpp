@@ -1,9 +1,12 @@
 #include "Aurora.h"
+#include<Aurora/Core/EntryPoint.h>
 #include "Platform/OpenGL/OpenGLShader.h"
 
 #include "imgui/imgui.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include "Sandbox2D.h"
 
 
 class ExampleLayer:public Aurora::Layer
@@ -12,7 +15,7 @@ public:
 	ExampleLayer()
 		:Layer("Example"), m_CameraController(1280.0f/720.0f)
 	{
-		m_VertexArray.reset(Aurora::VertexArray::Create());
+		m_VertexArray=Aurora::VertexArray::Create();
 
 		//渲染一个三角形
 		//顶点数据
@@ -25,7 +28,7 @@ public:
 		uint32_t indices[3] = { 0,1,2 };
 
 		//1.生成顶点数组对象VAO
-		m_VertexArray.reset(Aurora::VertexArray::Create());
+		m_VertexArray=Aurora::VertexArray::Create();
 		//2.顶点缓冲
 		Aurora::Ref<Aurora::VertexBuffer> m_VertexBuffer;
 		m_VertexBuffer.reset(Aurora::VertexBuffer::Create(vertices, sizeof(vertices)));
@@ -91,7 +94,7 @@ public:
 		//索引数据
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		//1.生成顶点数组VAO
-		m_SquareVA.reset(Aurora::VertexArray::Create());
+		m_SquareVA=Aurora::VertexArray::Create();
 		//2.顶点缓冲
 		Aurora::Ref<Aurora::VertexBuffer> squareVB;
 		squareVB.reset(Aurora::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
@@ -209,12 +212,7 @@ public:
 	void OnEvent(Aurora::Event& e )override
 	{
 		m_CameraController.OnEvent(e);
-		/*if(e.GetEventType()==Aurora::EventType::WindowResize)
-		{
-			auto& re = (Aurora::WindowResizeEvent&)e;
-			float zoom = (float)re.GetWidth() / 1280.0f;
-			m_CameraController.SetZoomLevel(zoom);
-		}*/
+		
 	}
 private:
 	Aurora::ShaderLibrary m_ShaderLibrary;
@@ -237,7 +235,8 @@ class Sandbox :public Aurora::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 	~Sandbox()
 	{

@@ -12,7 +12,7 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
-#include "Aurora/Log.h"
+#include "Aurora/Core/Log.h"
 
 #ifdef AR_PLATFORM_WINDOWS
 	#include "Windows.h"

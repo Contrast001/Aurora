@@ -147,32 +147,32 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Aurora.h" />
-    <ClInclude Include="src\Aurora\Application.h" />
-    <ClInclude Include="src\Aurora\Core.h" />
+    <ClInclude Include="src\Aurora\Core\Application.h" />
+    <ClInclude Include="src\Aurora\Core\Core.h" />
+    <ClInclude Include="src\Aurora\Core\EntryPoint.h" />
+    <ClInclude Include="src\Aurora\Core\Input.h" />
+    <ClInclude Include="src\Aurora\Core\KeyCodes.h" />
+    <ClInclude Include="src\Aurora\Core\Layer.h" />
+    <ClInclude Include="src\Aurora\Core\LayerStack.h" />
+    <ClInclude Include="src\Aurora\Core\Log.h" />
+    <ClInclude Include="src\Aurora\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\Aurora\Core\Timestep.h" />
-    <ClInclude Include="src\Aurora\EntryPoint.h" />
+    <ClInclude Include="src\Aurora\Core\Window.h" />
     <ClInclude Include="src\Aurora\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Aurora\Events\Event.h" />
     <ClInclude Include="src\Aurora\Events\KeyEvent.h" />
     <ClInclude Include="src\Aurora\Events\MouseEvent.h" />
     <ClInclude Include="src\Aurora\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\Aurora\Input.h" />
-    <ClInclude Include="src\Aurora\KeyCodes.h" />
-    <ClInclude Include="src\Aurora\Layer.h" />
-    <ClInclude Include="src\Aurora\LayerStack.h" />
-    <ClInclude Include="src\Aurora\Log.h" />
-    <ClInclude Include="src\Aurora\MouseButtonCodes.h" />
-    <ClInclude Include="src\Aurora\OrthographicCameraController.h" />
     <ClInclude Include="src\Aurora\Renderer\Buffer.h" />
     <ClInclude Include="src\Aurora\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Aurora\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Aurora\Renderer\OrthographicCameraController.h" />
     <ClInclude Include="src\Aurora\Renderer\Renderer.h" />
     <ClInclude Include="src\Aurora\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Aurora\Renderer\RendererCommand.h" />
     <ClInclude Include="src\Aurora\Renderer\Shader.h" />
     <ClInclude Include="src\Aurora\Renderer\Texture.h" />
     <ClInclude Include="src\Aurora\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Aurora\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -601,15 +601,15 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Aurora\Application.cpp" />
+    <ClCompile Include="src\Aurora\Core\Application.cpp" />
+    <ClCompile Include="src\Aurora\Core\Layer.cpp" />
+    <ClCompile Include="src\Aurora\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Aurora\Core\Log.cpp" />
     <ClCompile Include="src\Aurora\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Aurora\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Aurora\Layer.cpp" />
-    <ClCompile Include="src\Aurora\LayerStack.cpp" />
-    <ClCompile Include="src\Aurora\Log.cpp" />
-    <ClCompile Include="src\Aurora\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Aurora\Renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Aurora\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Aurora\Renderer\RendererCommand.cpp" />

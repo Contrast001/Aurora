@@ -2,8 +2,8 @@
 #include "OrthographicCameraController.h"
 
 
-#include "Aurora/Input.h"
-#include "Aurora/Keycodes.h"
+#include "Aurora/Core/Input.h"
+#include "Aurora/Core/Keycodes.h"
 
 namespace Aurora
 {

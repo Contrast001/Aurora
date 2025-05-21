@@ -1,16 +1,16 @@
 #pragma once
 
 //For use by Hazel applications
-#include "Aurora/Application.h"
-#include "Aurora/Layer.h"
-#include "Aurora/Log.h"
+#include "Aurora/Core/Application.h"
+#include "Aurora/Core/Layer.h"
+#include "Aurora/Core/Log.h"
 
 #include "Aurora/Core/Timestep.h"
 
-#include "Aurora/Input.h"
-#include "Aurora/KeyCodes.h"
-#include "Aurora/MouseButtonCodes.h"
-#include "Aurora/OrthographicCameraController.h"
+#include "Aurora/Core/Input.h"
+#include "Aurora/Core/KeyCodes.h"
+#include "Aurora/Core/MouseButtonCodes.h"
+#include "Aurora/Renderer/OrthographicCameraController.h"
 
 #include "Aurora/ImGui/ImGuiLayer.h"
 
@@ -29,6 +29,3 @@
 //-------------------------
 
 
-//------Entry Point--------
-#include"Aurora/EntryPoint.h"
-//-------------------------

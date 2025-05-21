@@ -1,11 +1,11 @@
 ﻿#pragma once
 #include "arpch.h"
-#include "Aurora/Core.h"
+#include "Aurora/Core/Core.h"
 
 
 namespace Aurora {
 	//我们的事件在Aurora中是阻塞式的
-	//当事件发生时,它会立即呗调度,并必须立即处理
+	//当事件发生时,它会立即被调度,并必须立即处理
 	//我们需要将事件缓存在事件总线中，这样我们可以在事件处理阶段期间进行处理
 
 	//enum

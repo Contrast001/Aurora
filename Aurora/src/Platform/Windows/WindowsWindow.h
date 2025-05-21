@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Aurora/Window.h"
+#include "Aurora/Core/Window.h"
 #include "Aurora/Renderer/GraphicsContext.h"
 #include <GLFW/glfw3.h>
 

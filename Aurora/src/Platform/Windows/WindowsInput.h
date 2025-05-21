@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Aurora/Input.h"
+#include "Aurora/Core/Input.h"
 
 namespace Aurora{
 	class WindowsInput:public Input

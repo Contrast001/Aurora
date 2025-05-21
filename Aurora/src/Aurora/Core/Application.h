@@ -2,10 +2,10 @@
 
 #include "Core.h"
 
-#include "Events/Event.h"
+#include "Aurora/Events/Event.h"
 #include "Window.h"
 #include "Aurora/Events/ApplicationEvent.h"
-#include "Aurora/LayerStack.h"
+#include "Aurora/Core/LayerStack.h"
 #include "Aurora/ImGui/ImGuiLayer.h"
 #include "Aurora/Core/Timestep.h"
 

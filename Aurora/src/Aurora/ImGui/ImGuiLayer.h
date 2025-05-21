@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Aurora/Layer.h"
+#include "Aurora/Core/Layer.h"
 
 #include "Aurora/Events/ApplicationEvent.h"
 #include "Aurora/Events/KeyEvent.h"

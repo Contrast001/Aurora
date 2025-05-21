@@ -2,7 +2,7 @@
 #include "Application.h"
 
 
-#include "Aurora/Log.h"
+#include "Aurora/Core/Log.h"
 #include <GLFW/glfw3.h>
 #include "Input.h"
 #include "Aurora/Renderer/Renderer.h"
