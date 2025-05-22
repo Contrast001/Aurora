@@ -6,7 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Sandbox2D.h"
+#include "Sandbox2D.h" 
 
 
 class ExampleLayer:public Aurora::Layer
@@ -44,10 +44,10 @@ public:
 		//4.再给顶点数组添加顶点缓冲，设置顶点的属性指针
 		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 		//5.索引缓冲
-		Aurora::Ref<Aurora::IndexBuffer> m_IndexBuffer;
-		m_IndexBuffer.reset(Aurora::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		Aurora::Ref<Aurora::IndexBuffer> indexBuffer;
+		indexBuffer.reset(Aurora::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		//6.给顶点数组设置索引缓冲
-		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
+		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		std::string vertexSrc = R"(
 			#version 330 core

@@ -17,7 +17,7 @@ void Sandbox2D::OnAttach()
 
 	//渲染一个quad
 	//顶点数据
-	float squareVertices[5 * 4] = {
+	float squareVertices[3 * 4] = {
 		-0.5f, -0.5f, 0.0f,
 		 0.5f, -0.5f, 0.0f,
 		 0.5f,  0.5f, 0.0f,
@@ -26,7 +26,7 @@ void Sandbox2D::OnAttach()
 	//索引数据
 	uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 	//1.生成顶点数组VAO
-	m_SquareVA=Aurora::VertexArray::Create();
+	m_SquareVA = Aurora::VertexArray::Create();
 	//2.顶点缓冲
 	Aurora::Ref<Aurora::VertexBuffer> squareVB;
 	squareVB.reset(Aurora::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
@@ -65,12 +65,8 @@ void Sandbox2D::OnUpdate(Aurora::Timestep ts)
 	std::dynamic_pointer_cast<Aurora::OpenGLShader>(m_FlatColorShader)->Bind();
 	std::dynamic_pointer_cast<Aurora::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat4("u_Color", m_SquareColor);
 
-
-
 ;
 	Aurora::Renderer::Submit(m_FlatColorShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-
-
 
 	Aurora::Renderer::EndScene();
 }

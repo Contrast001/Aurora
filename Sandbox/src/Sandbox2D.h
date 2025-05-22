@@ -8,6 +8,7 @@ public:
 	virtual ~Sandbox2D() = default;
 	virtual void OnAttach()override;
 	virtual void OnDetach()override;
+
 	void OnUpdate(Aurora::Timestep ts) override;
 	virtual void OnImGuiRender()override;
 	void OnEvent(Aurora::Event& e)override;
