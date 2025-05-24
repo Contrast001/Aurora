@@ -1,17 +1,19 @@
 #include "arpch.h"
 #include "Renderer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
+#include "Renderer2D.h"
 
 namespace Aurora{
 
 	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
 	void Renderer::Init()
 	{
-		RendererCommand::Init();
+		RenderCommand::Init();
+		Renderer2D::Init();
 	}
 	void Renderer::OnWindowResize( uint32_t width, uint32_t height)
 	{
-		RendererCommand::SetViewport(0, 0, width, height);
+		RenderCommand::SetViewport(0, 0, width, height);
 	}
 	void Renderer::BeginScene(OrthographicCamera& camera)
 	{
@@ -26,6 +28,6 @@ namespace Aurora{
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection",m_SceneData->ViewProjectionMatrix);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
 		vertexArray->Bind();
-		RendererCommand::DrawIndexed(vertexArray);
+		RenderCommand::DrawIndexed(vertexArray);
 	}
 }

@@ -2,7 +2,7 @@
 #include "RendererAPI.h"
 
 namespace Aurora{
-	class RendererCommand
+	class RenderCommand
 	{
 	public:
 		inline static void Init()

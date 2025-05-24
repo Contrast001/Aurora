@@ -18,7 +18,8 @@
 
 
 #include "Aurora/Renderer/Renderer.h"
-#include "Aurora/Renderer/RendererCommand.h"
+#include "Aurora/Renderer/Renderer2D.h"
+#include "Aurora/Renderer/RenderCommand.h"
 
 #include "Aurora/Renderer/Buffer.h"
 #include "Aurora/Renderer/Shader.h"

@@ -17,32 +17,7 @@ void Sandbox2D::OnAttach()
 
 	//渲染一个quad
 	//顶点数据
-	float squareVertices[3 * 4] = {
-		-0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
-		 0.5f,  0.5f, 0.0f,
-		-0.5f,  0.5f, 0.0f
-	};
-	//索引数据
-	uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-	//1.生成顶点数组VAO
-	m_SquareVA = Aurora::VertexArray::Create();
-	//2.顶点缓冲
-	Aurora::Ref<Aurora::VertexBuffer> squareVB;
-	squareVB.reset(Aurora::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
-	//3.设置顶点缓冲布局
-	squareVB->SetLayout({
-		{Aurora::ShaderDataType::Float3,"a_Position"}
-	});
-	//4.添加顶点缓冲
-	m_SquareVA->AddVertexBuffer(squareVB);
-	//5.索引缓冲
-	Aurora::Ref<Aurora::IndexBuffer> squareIB;
-	squareIB.reset(Aurora::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
-	//6.设置索引缓冲
-	m_SquareVA->SetIndexBuffer(squareIB);
-
-	m_FlatColorShader = Aurora::Shader::Create("assets/shaders/FlatColor.glsl");
+	
 
 }
 
@@ -56,19 +31,20 @@ void Sandbox2D::OnUpdate(Aurora::Timestep ts)
 	m_CameraController.OnUpdate(ts);
 
 	//Render
-	Aurora::RendererCommand::SetClearColor({ 0.1f,0.1f,0.1f,1 });
-	Aurora::RendererCommand::Clear();
+	Aurora::RenderCommand::SetClearColor({ 0.1f,0.1f,0.1f,1 });
+	Aurora::RenderCommand::Clear();
 
 
-	Aurora::Renderer::BeginScene(m_CameraController.GetCamera());
+	Aurora::Renderer2D::BeginScene(m_CameraController.GetCamera());
+	Aurora::Renderer2D::DrawQuad({ 0.0f,0.0f }, { 1.0f,1.0f }, {0.8f,0.2f,0.3f,1.0f});
+	Aurora::Renderer2D::EndScene();
 
-	std::dynamic_pointer_cast<Aurora::OpenGLShader>(m_FlatColorShader)->Bind();
-	std::dynamic_pointer_cast<Aurora::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat4("u_Color", m_SquareColor);
+	
+	
 
-;
-	Aurora::Renderer::Submit(m_FlatColorShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
-	Aurora::Renderer::EndScene();
+
+
 }
 
 void Sandbox2D::OnImGuiRender()

@@ -164,8 +164,8 @@ public:
 		m_CameraController.OnUpdate(ts);
 
 		//Render
-		Aurora::RendererCommand::SetClearColor({ 0.1f,0.1f,0.1f,1 });
-		Aurora::RendererCommand::Clear();
+		Aurora::RenderCommand::SetClearColor({ 0.1f,0.1f,0.1f,1 });
+		Aurora::RenderCommand::Clear();
 
 
 		Aurora::Renderer::BeginScene(m_CameraController.GetCamera());
