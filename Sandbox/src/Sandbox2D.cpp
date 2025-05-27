@@ -14,11 +14,7 @@ Sandbox2D::Sandbox2D()
 void Sandbox2D::OnAttach()
 {
 
-
-	//渲染一个quad
-	//顶点数据
-	
-
+	m_CheckerboardTexture = Aurora::Texture2D::Create("assets/textures/Checkerboard.png");
 }
 
 void Sandbox2D::OnDetach()
@@ -37,7 +33,9 @@ void Sandbox2D::OnUpdate(Aurora::Timestep ts)
 
 	Aurora::Renderer2D::BeginScene(m_CameraController.GetCamera());
 	Aurora::Renderer2D::DrawQuad({ -1.0f,0.0f }, { 0.8f,0.8f }, {0.8f,0.2f,0.3f,1.0f});
-	Aurora::Renderer2D::DrawQuad({ 0.5f,-0.5f }, { 0.5f,1.0f }, { 0.2f,0.3f,0.8f,1.0f });
+	Aurora::Renderer2D::DrawQuad({ 0.5f,-0.5f }, { 0.5f,0.75f }, { 0.2f,0.3f,0.8f,1.0f });
+	Aurora::Renderer2D::DrawQuad({ 0.0f,0.0f,-0.1f }, { 10.0f,10.0f }, m_CheckerboardTexture);
+
 
 	Aurora::Renderer2D::EndScene();
 
