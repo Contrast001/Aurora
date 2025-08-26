@@ -20,9 +20,9 @@ namespace Aurora{
 
 	struct Renderer2DData
 	{
-		const uint32_t MaxQuads = 10000;
-		const uint32_t MaxVertices = MaxQuads * 4;
-		const uint32_t MaxIndices = MaxQuads * 6;
+		static const uint32_t MaxQuads = 20000;
+		static const uint32_t MaxVertices = MaxQuads * 4;
+		static const uint32_t MaxIndices = MaxQuads * 6;
 		static const uint32_t MaxTextureSlots = 32;// 一次性的渲染上限
 
 		Ref<VertexArray> QuadVertexArray;
@@ -37,8 +37,12 @@ namespace Aurora{
 		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;//纹理槽
 		uint32_t TextureSlotIndex = 1; // 0 为白色纹理
 
-		glm::vec4 QuadVertexPosition[4];
+		glm::vec4 QuadVertexPosition[4]; // 4个顶点的标准位置
+		Renderer2D::Statistics Stats;
 	};
+
+	
+	
 
 	static Renderer2DData s_Data; 
 
@@ -56,7 +60,7 @@ namespace Aurora{
 			{ ShaderDataType::Float3,"a_Position"},
 			{ ShaderDataType::Float4,"a_Color"},
 			{ ShaderDataType::Float2,"a_TexCoord" },
-			{ ShaderDataType::Float,"a_textureIndex" },
+			{ ShaderDataType::Float,"a_TextureIndex" },
 			{ ShaderDataType::Float,"a_TilingFactor"}
 
 
@@ -120,7 +124,7 @@ namespace Aurora{
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
 
-		
+		s_Data.TextureSlotIndex = 1;
 	}
 	void Renderer2D::EndScene()
 	{
@@ -135,13 +139,28 @@ namespace Aurora{
 			s_Data.TextureSlots[i]->Bind(i);
 		}
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray, s_Data.QuadIndexCount);
+		s_Data.Stats.DrawCalls++;
 	}
+
+	void Renderer2D::FlushAndReset()
+	{
+		EndScene();
+
+		s_Data.QuadIndexCount = 0;
+		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
+
+		s_Data.TextureSlotIndex = 1;
+	}
+
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
 	{
 		DrawQuad({ position.x, position.y, 0.0f }, size, color);
 	}
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		if(s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+			FlushAndReset();
+
 		const float textureIndex = 0.0f; // 白色纹理的索引为0
 		const float tilingFactor = 1.0f; // 默认平铺因子
 
@@ -178,7 +197,10 @@ namespace Aurora{
 
 		s_Data.QuadIndexCount += 6;
 
+		s_Data.Stats.QuadCount++;
+
 	}
+
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor)
 	{
 		DrawQuad({ position.x, position.y, 0.0f }, size, texture,tilingFactor,tintColor);
@@ -186,6 +208,9 @@ namespace Aurora{
 	}
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor)
 	{
+		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+			FlushAndReset();
+
 		constexpr glm::vec4 color = { 1.0f,1.0f,1.0f,1.0f };
 
 		float textureIndex = 0.0f;	
@@ -238,6 +263,8 @@ namespace Aurora{
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadIndexCount += 6;
+
+		s_Data.Stats.QuadCount++;
 	}
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color)
 	{
@@ -246,6 +273,9 @@ namespace Aurora{
 	}
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color)
 	{
+		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+			FlushAndReset();
+
 		const float textureIndex = 0.0f; // 白色纹理的索引为0
 		const float tilingFactor = 1.0f; // 默认平铺因子
 
@@ -282,6 +312,8 @@ namespace Aurora{
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadIndexCount += 6;
+
+		s_Data.Stats.QuadCount++; 
 	}
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor)
 	{
@@ -289,6 +321,9 @@ namespace Aurora{
 	}
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor)
 	{
+		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+			FlushAndReset();
+
 		constexpr glm::vec4 color = { 1.0f,1.0f,1.0f,1.0f };
 
 		float textureIndex = 0.0f;
@@ -324,20 +359,35 @@ namespace Aurora{
 		s_Data.QuadVertexBufferPtr->Color = color;
 		s_Data.QuadVertexBufferPtr->TexCoord = { 1.0f,0.0f };
 		s_Data.QuadVertexBufferPtr->textureIndex = textureIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = tilingFactor;
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPosition[2];
 		s_Data.QuadVertexBufferPtr->Color = color;
 		s_Data.QuadVertexBufferPtr->TexCoord = { 1.0f,1.0f };
 		s_Data.QuadVertexBufferPtr->textureIndex = textureIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = tilingFactor;
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPosition[3];
 		s_Data.QuadVertexBufferPtr->Color = color;
 		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f,1.0f };
 		s_Data.QuadVertexBufferPtr->textureIndex = textureIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = tilingFactor;
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadIndexCount += 6;
+
+		s_Data.Stats.QuadCount++;
 	}
+	void Renderer2D::ResetStats()
+	{
+		memset(&s_Data.Stats, 0, sizeof(Statistics));
+	}
+
+	Renderer2D::Statistics Renderer2D::GetStats()
+	{
+		return s_Data.Stats;
+	}
+	
 }
