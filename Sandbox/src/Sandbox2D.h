@@ -22,6 +22,8 @@ private:
 	Aurora::Ref<Aurora::Shader> m_FlatColorShader;
 
 	Aurora::Ref<Aurora::Texture2D> m_CheckerboardTexture;
+	Aurora::Ref<Aurora::Texture2D> m_SpriteSheet;
+
 
 	struct ProfileResult
 	{
