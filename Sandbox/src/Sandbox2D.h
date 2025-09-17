@@ -23,6 +23,8 @@ private:
 
 	Aurora::Ref<Aurora::Texture2D> m_CheckerboardTexture;
 	Aurora::Ref<Aurora::Texture2D> m_SpriteSheet;
+	Aurora::Ref<Aurora::SubTexture2D> m_TextureStairs,m_TextureBarrel,m_TextureTree;
+
 
 
 	struct ProfileResult
