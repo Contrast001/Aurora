@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Core.h"
+#include "Base.h"
 
 #include "Aurora/Events/Event.h"
 #include "Window.h"

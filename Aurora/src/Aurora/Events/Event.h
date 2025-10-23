@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "arpch.h"
-#include "Aurora/Core/Core.h"
+#include "Aurora/Core/Base.h"
 
 
 namespace Aurora {

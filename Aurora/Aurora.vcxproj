@@ -148,7 +148,7 @@
   <ItemGroup>
     <ClInclude Include="src\Aurora.h" />
     <ClInclude Include="src\Aurora\Core\Application.h" />
-    <ClInclude Include="src\Aurora\Core\Core.h" />
+    <ClInclude Include="src\Aurora\Core\Base.h" />
     <ClInclude Include="src\Aurora\Core\EntryPoint.h" />
     <ClInclude Include="src\Aurora\Core\Input.h" />
     <ClInclude Include="src\Aurora\Core\KeyCodes.h" />
@@ -164,6 +164,7 @@
     <ClInclude Include="src\Aurora\Events\MouseEvent.h" />
     <ClInclude Include="src\Aurora\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Aurora\Renderer\Buffer.h" />
+    <ClInclude Include="src\Aurora\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Aurora\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Aurora\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\Aurora\Renderer\OrthographicCameraController.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="src\Aurora\Renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
@@ -610,6 +612,7 @@
     <ClCompile Include="src\Aurora\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Aurora\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Aurora\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Aurora\Renderer\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Renderer.cpp" />
@@ -622,6 +625,7 @@
     <ClCompile Include="src\Aurora\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />

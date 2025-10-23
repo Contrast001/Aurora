@@ -60,7 +60,7 @@
     <ClInclude Include="src\Aurora\Core\Application.h">
       <Filter>src\Aurora\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Core\Core.h">
+    <ClInclude Include="src\Aurora\Core\Base.h">
       <Filter>src\Aurora\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Core\EntryPoint.h">
@@ -1415,6 +1415,8 @@
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Aurora\Renderer\SubTexture2D.h" />
+    <ClInclude Include="src\Aurora\Renderer\Framebuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Core\Application.cpp">
@@ -1494,5 +1496,7 @@
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Aurora\Renderer\SubTexture2D.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Framebuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
   </ItemGroup>
 </Project>

@@ -9,22 +9,22 @@
 #include <chrono>
 #include <string>
 
-static const uint32_t s_MapWidth = 24;
-static const char* s_MapTiles = 
-"WWWWWWWWWWWWWWWWWWWWWWWW"
-"WWWWWWWWWWWWWWWWWWWWWWWW"
-"WWWWDDDDDDDDDDDDDWWWWWW"
-"WWWWDDDWWWWWWWWWDDWWWWWW"
-"WWWDDWWWWWWDDWWWWWDDWWWW"
-"WWWDDWWWWWWWWDDWWWWDDWWW"
-"WWWDDWWDDWWWWWWWWDDWWWWW"
-"WWWDDWWWWWWWWWWDDDWWWWWW"
-"WWWWDDWWWDDWWWDDWWWWWWWW"
-"WWWWWDDDWWWWDDDWWWWWWWWW"
-"WWWWWWWDDDDDWWWWWWWWWWWW"
-"WWWWWWWWWWWWWWWWWWWWWWWW"
-"WWWWWWWWWWWWWWWWWWWWWWWW"
-"WWWWWWWWWWWWWWWWWWWWWWWW";
+//static const uint32_t s_MapWidth = 24;
+//static const char* s_MapTiles = 
+//"WWWWWWWWWWWWWWWWWWWWWWWW"
+//"WWWWWWWWWWWWWWWWWWWWWWWW"
+//"WWWWDDDDDDDDDDDDDWWWWWW"
+//"WWWWDDDWWWWWWWWWDDWWWWWW"
+//"WWWDDWWWWWWDDWWWWWDDWWWW"
+//"WWWDDWWWWWWWWDDWWWWDDWWW"
+//"WWWDDWWDDWWWWWWWWDDWWWWW"
+//"WWWDDWWWWWWWWWWDDDWWWWWW"
+//"WWWWDDWWWDDWWWDDWWWWWWWW"
+//"WWWWWDDDWWWWDDDWWWWWWWWW"
+//"WWWWWWWDDDDDWWWWWWWWWWWW"
+//"WWWWWWWWWWWWWWWWWWWWWWWW"
+//"WWWWWWWWWWWWWWWWWWWWWWWW"
+//"WWWWWWWWWWWWWWWWWWWWWWWW";
 
 template<typename Fn>
 class Timer 
@@ -78,17 +78,23 @@ void Sandbox2D::OnAttach()
 {
 
 	m_CheckerboardTexture = Aurora::Texture2D::Create("assets/textures/Checkerboard.png");
-	m_SpriteSheet = Aurora::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
 
-	m_TextureStairs = Aurora::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 0,11 }, { 128,128 });
-	m_TextureTree = Aurora::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2,1 }, { 128,128 }, {1,2});
+	Aurora::FramebufferSpecification fbSpec;
+	fbSpec.Width = 1280;
+	fbSpec.Height = 720;
+	m_Framebuffer = Aurora::Framebuffer::Create(fbSpec);
+
+	//m_SpriteSheet = Aurora::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
+
+	/*m_TextureStairs = Aurora::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 0,11 }, { 128,128 });
+	m_TextureTree = Aurora::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2,1 }, { 128,128 }, {1,2});*/
 
 
-	m_MapWidth = s_MapWidth;
-	m_MapHeight = strlen(s_MapTiles) / s_MapWidth;
+	/*m_MapWidth = s_MapWidth;
+	m_MapHeight = strlen(s_MapTiles) / s_MapWidth;*/
 
-	s_TextureMap['D'] = Aurora::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 6,11 }, { 128,128 });
-	s_TextureMap['W'] = Aurora::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 11,11 }, { 128,128 });
+	/*s_TextureMap['D'] = Aurora::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 6,11 }, { 128,128 });
+	s_TextureMap['W'] = Aurora::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 11,11 }, { 128,128 });*/
 
 
 	m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
@@ -120,11 +126,12 @@ void Sandbox2D::OnUpdate(Aurora::Timestep ts)
 	Aurora::Renderer2D::ResetStats();
 	{
 		PROFILE_SCOPE("Renderer Prep ");
+		m_Framebuffer->Bind();
 		Aurora::RenderCommand::SetClearColor({ 0.1f,0.1f,0.1f,1 });
 		Aurora::RenderCommand::Clear();
 
 	}
-#if 0
+
 	{
 		static float rotation = 0.0f;
 		rotation += ts * 50.f;
@@ -148,9 +155,10 @@ void Sandbox2D::OnUpdate(Aurora::Timestep ts)
 			}
 		}
 		Aurora::Renderer2D::EndScene();
+		
 
 	}
-#endif
+	m_Framebuffer->Unbind();
 	if (Aurora::Input::IsMouseButtonPressed(AR_MOUSE_BUTTON_LEFT))
 	{
 		auto [x, y] = Aurora::Input::GetMousePosition();
@@ -171,7 +179,7 @@ void Sandbox2D::OnUpdate(Aurora::Timestep ts)
 
 	Aurora::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-	for (uint32_t y = 0; y < m_MapHeight ; y++) 
+	/*for (uint32_t y = 0; y < m_MapHeight ; y++) 
 	{
 		for (uint32_t x = 0; x < m_MapWidth; x++) 
 		{
@@ -190,18 +198,19 @@ void Sandbox2D::OnUpdate(Aurora::Timestep ts)
 
 		}
 
-	}
+	}*/
 	/*Aurora::Renderer2D::DrawQuad({ 0.0f,0.0f,0.5f }, { 1.0f,1.0f }, m_TextureStairs);
 	Aurora::Renderer2D::DrawQuad({ 1.0f,0.0f,0.5f }, { 1.0f,1.0f }, m_TextureBarrel);
 	Aurora::Renderer2D::DrawQuad({ -1.0f,0.0f,0.5f }, { 1.0f,2.0f }, m_TextureTree);*/
 
 	Aurora::Renderer2D::EndScene();
+	
 
 }
 
 void Sandbox2D::OnImGuiRender()
 {
-	static bool dockspaceOpen = true;
+	static bool dockspaceOpen = true; 
 	static bool opt_fullscreen = true;
 	static bool opt_padding = false;
 	static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
@@ -273,10 +282,10 @@ void Sandbox2D::OnImGuiRender()
 	ImGui::Text("Quads: %d", stats.QuadCount);
 	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
-	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+	//ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
-	uint32_t textureID = m_CheckerboardTexture->GetRendererID();
-	ImGui::Image((void*)textureID, ImVec2{ 256.0f,256.0f });
+	uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
+	ImGui::Image((void*)textureID, ImVec2{ 1280,720 });
 	ImGui::End(); 
 	ImGui::End();
 
