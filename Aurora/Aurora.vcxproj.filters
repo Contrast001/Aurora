@@ -108,6 +108,9 @@
     <ClInclude Include="src\Aurora\Renderer\Buffer.h">
       <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Aurora\Renderer\Framebuffer.h">
+      <Filter>src\Aurora\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\GraphicsContext.h">
       <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
@@ -117,16 +120,22 @@
     <ClInclude Include="src\Aurora\Renderer\OrthographicCameraController.h">
       <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Aurora\Renderer\RenderCommand.h">
+      <Filter>src\Aurora\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\Renderer.h">
+      <Filter>src\Aurora\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Renderer\Renderer2D.h">
       <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\RendererAPI.h">
       <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Renderer\RenderCommand.h">
+    <ClInclude Include="src\Aurora\Renderer\Shader.h">
       <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Renderer\Shader.h">
+    <ClInclude Include="src\Aurora\Renderer\SubTexture2D.h">
       <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\Texture.h">
@@ -139,6 +148,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
@@ -1413,10 +1425,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Renderer\Renderer2D.h" />
-    <ClInclude Include="src\Aurora\Renderer\SubTexture2D.h" />
-    <ClInclude Include="src\Aurora\Renderer\Framebuffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Core\Application.cpp">
@@ -1440,22 +1448,31 @@
     <ClCompile Include="src\Aurora\Renderer\Buffer.cpp">
       <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Aurora\Renderer\Framebuffer.cpp">
+      <Filter>src\Aurora\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\OrthographicCamera.cpp">
       <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\OrthographicCameraController.cpp">
       <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Aurora\Renderer\RenderCommand.cpp">
+      <Filter>src\Aurora\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\Renderer.cpp">
+      <Filter>src\Aurora\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Renderer\Renderer2D.cpp">
       <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\RendererAPI.cpp">
       <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Aurora\Renderer\RenderCommand.cpp">
+    <ClCompile Include="src\Aurora\Renderer\Shader.cpp">
       <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Aurora\Renderer\Shader.cpp">
+    <ClCompile Include="src\Aurora\Renderer\SubTexture2D.cpp">
       <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\Texture.cpp">
@@ -1468,6 +1485,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
@@ -1494,9 +1514,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Aurora\Renderer\Renderer2D.cpp" />
-    <ClCompile Include="src\Aurora\Renderer\SubTexture2D.cpp" />
-    <ClCompile Include="src\Aurora\Renderer\Framebuffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
+    <ClCompile Include="src\Aurora\Core\Window.cpp" />
   </ItemGroup>
 </Project>

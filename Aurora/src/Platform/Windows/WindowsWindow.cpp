@@ -17,10 +17,10 @@ namespace Aurora{
 	{
 		AR_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
-	Window* Window::Create(const WindowProps& props)
+	/*Window* Window::Create(const WindowProps& props)
 	{
 		return new WindowsWindow(props);
-	}
+	}*/
 
 	WindowsWindow::WindowsWindow(const WindowProps &props)
 	{
@@ -107,7 +107,7 @@ namespace Aurora{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 			KeyTypedEvent event(keycode);
 			data.EventCallback(event);
-
+	
 
 		}); 
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window ,int button,int action,int mods) 

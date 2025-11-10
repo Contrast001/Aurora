@@ -20,7 +20,6 @@ private:
 	//Temp
 	Aurora::Ref<Aurora::VertexArray> m_SquareVA;
 	Aurora::Ref<Aurora::Shader> m_FlatColorShader;
-	Aurora::Ref<Aurora::Framebuffer> m_Framebuffer;
 	Aurora::Ref<Aurora::Texture2D> m_CheckerboardTexture;
 	Aurora::Ref<Aurora::Texture2D> m_SpriteSheet;
 	Aurora::Ref<Aurora::SubTexture2D> m_TextureStairs,m_TextureBarrel,m_TextureTree;

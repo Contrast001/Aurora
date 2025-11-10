@@ -21,11 +21,11 @@ IncludeDir["stb_image"] = "Aurora/vendor/stb_image"
 
 
 
-
-include "Aurora/vendor/GLFW"
-include "Aurora/vendor/Glad"
-include "Aurora/vendor/imgui"
-
+group "Dependencies"
+	include "Aurora/vendor/GLFW"
+	include "Aurora/vendor/Glad"
+	include "Aurora/vendor/imgui"
+group""
 
 
 project "Aurora"
@@ -113,6 +113,65 @@ project "Aurora"
 
 project "Sandbox"
 	location "Sandbox"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect"C++17"
+	staticruntime "On"
+	buildoptions { "/utf-8" }
+
+	targetdir ("bin/" .. outputdir .."/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .."/%{prj.name}")
+		
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+	
+	includedirs
+	{
+		"Aurora/vendor/spdlog/include",
+		"Aurora/src",
+		"Aurora/vendor",
+		"%{IncludeDir.glm}"
+
+	}
+
+	links
+	{
+		"Aurora"
+	}
+	--过滤器
+	filter "system:windows"
+		--启用静态运行
+		systemversion "latest"
+		 buildoptions { "/utf-8" }
+		defines
+		{
+			"AR_PLATFORM_WINDOWS"
+		}	
+		
+	filter "configurations:Debug"
+		defines "AR_DEBUG"
+		runtime "Debug"
+		--调试符号
+		symbols "On"
+
+	filter "configurations:Release"
+		defines "AR_RELEASE"
+		runtime "Release"
+		--优化
+		optimize "On"
+		 
+	filter "configurations:Dist"
+		defines "AR_DIST"
+		runtime "Release"
+		--优化
+		optimize "On"
+
+
+project "Aurora-Editor"
+	location "Aurora-Editor"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect"C++17"
