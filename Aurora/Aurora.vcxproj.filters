@@ -1439,6 +1439,9 @@
     <ClCompile Include="src\Aurora\Core\Log.cpp">
       <Filter>src\Aurora\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Aurora\Core\Window.cpp">
+      <Filter>src\Aurora\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\Aurora\ImGui\ImGuiBuild.cpp">
       <Filter>src\Aurora\ImGui</Filter>
     </ClCompile>
@@ -1514,6 +1517,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Aurora\Core\Window.cpp" />
   </ItemGroup>
 </Project>

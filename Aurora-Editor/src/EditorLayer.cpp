@@ -268,10 +268,55 @@ namespace Aurora {
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-
-		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ 1280,720 }, ImVec2{ 0,1 }, ImVec2{1,0});
 		ImGui::End();
+
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
+		ImGui::Begin("ViewPort");
+
+		// 获取视口可用区域大小
+		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+
+		// 安全地将ImVec2转换为glm::vec2
+		glm::vec2 newViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+
+		// 添加最小尺寸检查和浮点数比较容差
+		if (newViewportSize.x > 1.0f && newViewportSize.y > 1.0f)
+		{
+			float widthDiff = std::abs(m_ViewportSize.x - newViewportSize.x);
+			float heightDiff = std::abs(m_ViewportSize.y - newViewportSize.y);
+
+			// 只有当尺寸变化超过1像素时才进行调整（避免频繁调整）
+			if (widthDiff > 1.0f || heightDiff > 1.0f)
+			{
+				// 先更新视口大小，然后调整帧缓冲区
+				m_ViewportSize = newViewportSize;
+
+				// 使用四舍五入确保整数尺寸准确
+				uint32_t framebufferWidth = static_cast<uint32_t>(m_ViewportSize.x + 0.5f);
+				uint32_t framebufferHeight = static_cast<uint32_t>(m_ViewportSize.y + 0.5f);
+
+				// 确保最小尺寸为1
+				framebufferWidth = std::max(framebufferWidth, 1u);
+				framebufferHeight = std::max(framebufferHeight, 1u);
+
+				m_Framebuffer->Resize(framebufferWidth, framebufferHeight);
+				m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
+
+			}
+		}
+
+		// 获取帧缓冲区纹理ID
+		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
+
+		// 确保使用正确的尺寸显示纹理
+		ImGui::Image((void*)textureID,
+			ImVec2{ m_ViewportSize.x, m_ViewportSize.y },
+			ImVec2{ 0, 1 },
+			ImVec2{ 1, 0 });
+
+		ImGui::End();
+		ImGui::PopStyleVar();
+
 		ImGui::End();
 
 

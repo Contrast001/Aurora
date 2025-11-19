@@ -1,5 +1,6 @@
 workspace "Aurora"    --sln文件名
-	architecture "x64"
+	architecture "x86_64"
+	startproject "Aurora-Editor"
 	configurations
 	{
 		"Debug",
@@ -7,7 +8,7 @@ workspace "Aurora"    --sln文件名
 		"Dist"
 	}
 
-startproject "Sandbox"
+
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 
