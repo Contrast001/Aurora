@@ -15,7 +15,7 @@ namespace Aurora{
 	{
 	public:
 		AuroraEditor()
-			:Application("Hazel Editor")
+			:Application("Aurora Editor")
 		{
 			PushLayer(new EditorLayer());
 		}
