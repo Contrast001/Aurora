@@ -3,9 +3,7 @@
 
 namespace Aurora{
 
-	LayerStack::LayerStack()
-	{
-	}
+	
 
 	LayerStack::~LayerStack()
 	{

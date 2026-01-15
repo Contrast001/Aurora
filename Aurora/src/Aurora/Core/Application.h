@@ -20,13 +20,15 @@ namespace Aurora {
 
 		void OnEvent(Event& e);
 
-		void Close();
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
 
 		Window& GetWindow() { return *m_Window; }
 		static Application& Get() { return *s_Instance; }
+		void Close();
+
+		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e); 

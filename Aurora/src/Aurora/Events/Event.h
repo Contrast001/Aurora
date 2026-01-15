@@ -39,24 +39,25 @@ namespace Aurora {
 						virtual int GetCategoryFlags() const override {return category;}
 
 	//虚基类定义
-	class AURORA_API Event
+	class Event
 	{
 		friend class EventDispatcher;
 	public:
+		virtual ~Event() = default;
+		bool Handled = false;
+
 		virtual EventType GetEventType()const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags()const = 0;
 		virtual std::string ToString() const { return GetName(); }
+
 		inline bool IsInCategory(EventCategory category)
 		{
 			return GetCategoryFlags() & category;
 		}
-		inline bool IsHandled()
-		{
-			return m_Handled;
-		}
-	protected:
-		bool m_Handled = false;
+		
+
+		
 	};
 
 	//事件分发器
@@ -77,7 +78,7 @@ namespace Aurora {
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
 				//将事件的m_Handled标记为处理结果
-				m_Event.m_Handled = func(*(T*)&m_Event);
+				m_Event.Handled = func(*(T*)&m_Event);
 				return true;
 			}
 			return false;

@@ -99,12 +99,9 @@ namespace Aurora {
 
 	void EditorLayer::OnUpdate(Aurora::Timestep ts)
 	{
-		PROFILE_SCOPE("EditorLayer::OnUpdate ");
-		//Update
-		{
-			PROFILE_SCOPE("CameraController::OnUpdate ");
+		if(m_ViewportFocused)
 			m_CameraController.OnUpdate(ts);
-		}
+		
 
 
 		//Render
@@ -272,6 +269,11 @@ namespace Aurora {
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 		ImGui::Begin("ViewPort");
+
+		m_ViewportFocused = ImGui::IsWindowFocused();
+		m_ViewportHovered = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused||!m_ViewportFocused);
+
 
 		// 获取视口可用区域大小
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
