@@ -5,6 +5,7 @@
 
 namespace Aurora
 {
+	static const uint32_t s_MaxFramebufferSize = 8192;
 	Aurora::OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferSpecification& spec)
 		:m_Specification(spec)
 	{
@@ -58,7 +59,11 @@ namespace Aurora
 	}
 	void OpenGLFramebuffer::Resize(uint32_t width, uint32_t height)
 	{
-
+		if(width==0||height==0||width>s_MaxFramebufferSize||height>s_MaxFramebufferSize)
+		{
+			AR_CORE_WARN("试图将frambuffer的大小设为{0} {1}", width, height);
+			return;
+		}
 		m_Specification.Width = width;
 		m_Specification.Height = height;
 		Invalidate();
