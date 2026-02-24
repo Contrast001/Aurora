@@ -19,6 +19,8 @@ IncludeDir["Glad"] = "Aurora/vendor/Glad/include"
 IncludeDir["ImGui"] = "Aurora/vendor/imgui"
 IncludeDir["glm"] = "Aurora/vendor/glm"
 IncludeDir["stb_image"] = "Aurora/vendor/stb_image"
+IncludeDir["entt"] = "Aurora/vendor/entt/include"
+
 
 
 
@@ -67,7 +69,7 @@ project "Aurora"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.entt}"
 
 
 	}
@@ -134,7 +136,8 @@ project "Sandbox"
 		"Aurora/vendor/spdlog/include",
 		"Aurora/src",
 		"Aurora/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 
 	}
 
