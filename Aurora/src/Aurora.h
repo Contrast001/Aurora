@@ -14,6 +14,8 @@
 
 #include "Aurora/ImGui/ImGuiLayer.h"
 
+#include "Aurora/Scene/Scene.h"
+#include "Aurora/Scene/Components.h"
 //------Renderer--------
 
 

@@ -22,9 +22,9 @@ namespace Aurora{
 		Ref<VertexArray> m_SquareVA;
 		Ref<Shader> m_FlatColorShader;
 		Ref<Framebuffer> m_Framebuffer;
+
+		Ref<Scene> m_ActiveScene;
 		Ref<Texture2D> m_CheckerboardTexture;
-
-
 
 
 		struct ProfileResult

@@ -69,6 +69,7 @@ project "Aurora"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}"
 
 
@@ -196,8 +197,8 @@ project "Aurora-Editor"
 		"Aurora/vendor/spdlog/include",
 		"Aurora/src",
 		"Aurora/vendor",
-		"%{IncludeDir.glm}"
-
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links

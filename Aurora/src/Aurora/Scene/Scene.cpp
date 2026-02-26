@@ -13,6 +13,13 @@ namespace Aurora{
 	}
 	Scene::Scene()
 	{
+
+		struct MeshComponent 
+		{
+			bool Data;
+			MeshComponent() = default;
+		};
+
 		struct TransformComponent 
 		{
 			glm::mat4 Transform;
@@ -23,8 +30,6 @@ namespace Aurora{
 			operator  glm::mat4& ()  { return Transform; }
 			operator const glm::mat4& () const { return Transform; }
 		};
-
-		struct MeshComponent {};
 
 
 
@@ -40,14 +45,21 @@ namespace Aurora{
 		}
 
 		auto group = m_Registry.group<TransformComponent>(entt::get<MeshComponent>);
-		/*for(auto entity :group)
+		for(auto entity :group)
 		{
 			auto&[transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
-		}*/
+		}
 
 	}
 
 	Scene::~Scene()
+	{
+	}
+	entt::entity Scene::CreateEntity()
+	{
+		return m_Registry.create();
+	}
+	void Scene::OnUpdate(Timestep ts)
 	{
 	}
 }

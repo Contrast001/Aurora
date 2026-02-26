@@ -19,6 +19,9 @@
     <Filter Include="src\Aurora\Renderer">
       <UniqueIdentifier>{AC3EB730-18A0-943E-A10D-DBF00D6ECBFD}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Aurora\Scene">
+      <UniqueIdentifier>{E3D570EF-CFCE-8F41-F800-75C6E4586F4D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
@@ -143,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\VertexArray.h">
       <Filter>src\Aurora\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Scene\Scene.h">
+      <Filter>src\Aurora\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1480,6 +1486,9 @@
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\VertexArray.cpp">
       <Filter>src\Aurora\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Scene\Scene.cpp">
+      <Filter>src\Aurora\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>

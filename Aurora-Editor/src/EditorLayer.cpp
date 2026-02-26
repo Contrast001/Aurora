@@ -62,90 +62,59 @@ namespace Aurora {
 	void EditorLayer::OnAttach()
 	{
 
-		m_CheckerboardTexture = Aurora::Texture2D::Create("assets/textures/Checkerboard.png");
-
-		Aurora::FramebufferSpecification fbSpec;
+		m_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
+		
+		FramebufferSpecification fbSpec;
 		fbSpec.Width = 1280;
 		fbSpec.Height = 720;
-		m_Framebuffer = Aurora::Framebuffer::Create(fbSpec);
+		m_Framebuffer = Framebuffer::Create(fbSpec);
 
-		//m_SpriteSheet = Aurora::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
+		m_ActiveScene = CreateRef<Scene>();
 
-		/*m_TextureStairs = Aurora::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 0,11 }, { 128,128 });
-		m_TextureTree = Aurora::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2,1 }, { 128,128 }, {1,2});*/
+		auto square = m_ActiveScene->CreateEntity();
+		m_ActiveScene->Reg().emplace<TransformComponent>(square);
+		m_ActiveScene->Reg().emplace<SpriteRendererComponent>(square, glm::vec4{0.0f,1.0f,0.0f,1.0f});
 
-
-		/*m_MapWidth = s_MapWidth;
-		m_MapHeight = strlen(s_MapTiles) / s_MapWidth;*/
-
-		/*s_TextureMap['D'] = Aurora::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 6,11 }, { 128,128 });
-		s_TextureMap['W'] = Aurora::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 11,11 }, { 128,128 });*/
-
-
-		/*m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
-		m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
-		m_Particle.SizeBegin = 0.5f, m_Particle.SizeVariation = 0.3f, m_Particle.SizeEnd = 0.0f;
-		m_Particle.LifeTime = 1.0f;
-		m_Particle.Velocity = { 0.0f, 0.0f };
-		m_Particle.VelocityVariation = { 3.0f, 1.0f };
-		m_Particle.Position = { 0.0f, 0.0f };*/
-
-		m_CameraController.SetZoomLevel(5.0f);
+		//m_CameraController.SetZoomLevel(5.0f);
 	}
 
 	void EditorLayer::OnDetach()
 	{
 	}
 
-	void EditorLayer::OnUpdate(Aurora::Timestep ts)
+	void EditorLayer::OnUpdate(Timestep ts)
 	{
+		//Update
 		if(m_ViewportFocused)
 			m_CameraController.OnUpdate(ts);
 		
-
+		
 
 		//Render
-		Aurora::Renderer2D::ResetStats();
+		Renderer2D::ResetStats();
+	
+
+		m_Framebuffer->Bind();
+		RenderCommand::SetClearColor({ 0.1f,0.1f,0.1f,1 });
+		RenderCommand::Clear();
+
+		
+
 		{
-			PROFILE_SCOPE("Renderer Prep ");
-			m_Framebuffer->Bind();
-			Aurora::RenderCommand::SetClearColor({ 0.1f,0.1f,0.1f,1 });
-			Aurora::RenderCommand::Clear();
+			Renderer2D::BeginScene(m_CameraController.GetCamera());
+			
+			Renderer2D::EndScene();
 
-		}
-
-		{
-			static float rotation = 0.0f;
-			rotation += ts * 50.f;
-
-			PROFILE_SCOPE("Renderer Draw ");
-			Aurora::Renderer2D::BeginScene(m_CameraController.GetCamera());
-			Aurora::Renderer2D::DrawRotatedQuad({ 1.0f,0.0f }, { 0.8f,0.8f }, glm::radians(-45.0f), { 0.8f,0.2f,0.3f,1.0f });
-			Aurora::Renderer2D::DrawQuad({ -1.0f,0.0f }, { 0.8f,0.8f }, { 0.8f,0.2f,0.3f,1.0f });
-			Aurora::Renderer2D::DrawQuad({ 0.5f,-0.5f }, { 0.5f,0.75f }, { 0.2f,0.3f,0.8f,1.0f });
-			Aurora::Renderer2D::DrawQuad({ 0.0f,0.0f,-0.1f }, { 20.0f,20.0f }, m_CheckerboardTexture, 10.0f);
-			Aurora::Renderer2D::DrawRotatedQuad({ -2.0f,0.0f,0.0f }, { 1.0f,1.0f }, glm::radians(rotation), m_CheckerboardTexture, 10.0f);
-			Aurora::Renderer2D::EndScene();
-
-			Aurora::Renderer2D::BeginScene(m_CameraController.GetCamera());
-			for (float y = -5.0f; y < 5.0f; y += 0.5f)
-			{
-				for (float x = -5.0f; x < 5.0f; x += 0.5f)
-				{
-					glm::vec4 color = { (x + 0.5f) / 10.0f,0.4f,(y + 0.5f) / 10.0f,0.7f };
-					Aurora::Renderer2D::DrawQuad({ x,y }, { 0.45f,0.45f }, color);
-				}
-			}
-			Aurora::Renderer2D::EndScene();
+			
 
 
 		}
 		m_Framebuffer->Unbind();
-		if (Aurora::Input::IsMouseButtonPressed(AR_MOUSE_BUTTON_LEFT))
+		if (Input::IsMouseButtonPressed(AR_MOUSE_BUTTON_LEFT))
 		{
-			auto [x, y] = Aurora::Input::GetMousePosition();
-			auto width = Aurora::Application::Get().GetWindow().GetWidth();
-			auto height = Aurora::Application::Get().GetWindow().GetHeight();
+			auto [x, y] = Input::GetMousePosition();
+			auto width = Application::Get().GetWindow().GetWidth();
+			auto height = Application::Get().GetWindow().GetHeight();
 
 			auto bounds = m_CameraController.GetBounds();
 			auto pos = m_CameraController.GetCamera().GetPosition();
@@ -159,14 +128,14 @@ namespace Aurora {
 		/*m_ParticleSystem.OnUpdate(ts);
 		m_ParticleSystem.OnRender(m_CameraController.GetCamera());*/
 
-		Aurora::Renderer2D::BeginScene(m_CameraController.GetCamera());
+		Renderer2D::BeginScene(m_CameraController.GetCamera());
 
 		/*for (uint32_t y = 0; y < m_MapHeight ; y++)
 		{
 			for (uint32_t x = 0; x < m_MapWidth; x++)
 			{
 				char tileType =s_MapTiles[y * m_MapWidth + x];
-				Aurora::Ref<Aurora::SubTexture2D>texture;
+				Ref<SubTexture2D>texture;
 				if (s_TextureMap.find(tileType) != s_TextureMap.end())
 				{
 					texture = s_TextureMap[tileType];
@@ -175,17 +144,17 @@ namespace Aurora {
 				{
 					texture = m_TextureBarrel;
 				}
-				Aurora::Renderer2D::DrawQuad({ x-m_MapWidth/2.0,m_MapHeight-y-m_MapHeight/ 2.0,0.5f }, { 1.0f,1.0f }, texture);
+				Renderer2D::DrawQuad({ x-m_MapWidth/2.0,m_MapHeight-y-m_MapHeight/ 2.0,0.5f }, { 1.0f,1.0f }, texture);
 
 
 			}
 
 		}*/
-		/*Aurora::Renderer2D::DrawQuad({ 0.0f,0.0f,0.5f }, { 1.0f,1.0f }, m_TextureStairs);
-		Aurora::Renderer2D::DrawQuad({ 1.0f,0.0f,0.5f }, { 1.0f,1.0f }, m_TextureBarrel);
-		Aurora::Renderer2D::DrawQuad({ -1.0f,0.0f,0.5f }, { 1.0f,2.0f }, m_TextureTree);*/
+		/*Renderer2D::DrawQuad({ 0.0f,0.0f,0.5f }, { 1.0f,1.0f }, m_TextureStairs);
+		Renderer2D::DrawQuad({ 1.0f,0.0f,0.5f }, { 1.0f,1.0f }, m_TextureBarrel);
+		Renderer2D::DrawQuad({ -1.0f,0.0f,0.5f }, { 1.0f,2.0f }, m_TextureTree);*/
 
-		Aurora::Renderer2D::EndScene();
+		Renderer2D::EndScene();
 
 
 	}
@@ -250,7 +219,7 @@ namespace Aurora {
 			{
 
 
-				if (ImGui::MenuItem("Exit")) Aurora::Application::Get().Close();
+				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
 			}
 
@@ -258,7 +227,7 @@ namespace Aurora {
 		}
 		ImGui::Begin("Settings");
 
-		auto stats = Aurora::Renderer2D::GetStats();
+		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
 		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
 		ImGui::Text("Quads: %d", stats.QuadCount);
@@ -324,7 +293,7 @@ namespace Aurora {
 
 	}
 
-	void EditorLayer::OnEvent(Aurora::Event& e)
+	void EditorLayer::OnEvent(Event& e)
 	{
 		m_CameraController.OnEvent(e);
 	}

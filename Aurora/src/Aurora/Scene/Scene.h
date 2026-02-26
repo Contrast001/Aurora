@@ -2,6 +2,8 @@
 
 #include "entt.hpp"
 
+#include "Components.h"
+#include "Aurora/Core/Timestep.h"
 namespace Aurora{
 
 	class Scene
@@ -9,6 +11,13 @@ namespace Aurora{
 	public:
 		Scene();
 		~Scene();
+
+		entt::entity CreateEntity();
+
+		//Temp
+		entt::registry& Reg() { return m_Registry; };
+
+		void OnUpdate(Timestep ts);
 	private:
 		entt::registry m_Registry;
 	};
