@@ -75,7 +75,7 @@ namespace Aurora {
 		m_ActiveScene->Reg().emplace<TransformComponent>(square);
 		m_ActiveScene->Reg().emplace<SpriteRendererComponent>(square, glm::vec4{0.0f,1.0f,0.0f,1.0f});
 
-		//m_CameraController.SetZoomLevel(5.0f);
+		m_SquareEntity = square;
 	}
 
 	void EditorLayer::OnDetach()
@@ -92,24 +92,18 @@ namespace Aurora {
 
 		//Render
 		Renderer2D::ResetStats();
-	
-
 		m_Framebuffer->Bind();
 		RenderCommand::SetClearColor({ 0.1f,0.1f,0.1f,1 });
 		RenderCommand::Clear();
 
-		
 
-		{
-			Renderer2D::BeginScene(m_CameraController.GetCamera());
-			
-			Renderer2D::EndScene();
+		Renderer2D::BeginScene(m_CameraController.GetCamera());
+		//Update scene	
+		m_ActiveScene->OnUpdate(ts);
+		Renderer2D::EndScene();
 
-			
-
-
-		}
 		m_Framebuffer->Unbind();
+
 		if (Input::IsMouseButtonPressed(AR_MOUSE_BUTTON_LEFT))
 		{
 			auto [x, y] = Input::GetMousePosition();
@@ -233,7 +227,8 @@ namespace Aurora {
 		ImGui::Text("Quads: %d", stats.QuadCount);
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
-		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+		auto& squareColor=m_ActiveScene->Reg().get<SpriteRendererComponent>(m_SquareEntity).Color;
+		ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
 		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });

@@ -1,6 +1,9 @@
 #include "arpch.h"
 #include "Scene.h"
 
+#include "Components.h"
+#include "Aurora/Renderer/Renderer2D.h"
+
 #include <glm/glm.hpp>
 namespace Aurora{
 
@@ -14,25 +17,6 @@ namespace Aurora{
 	Scene::Scene()
 	{
 
-		struct MeshComponent 
-		{
-			bool Data;
-			MeshComponent() = default;
-		};
-
-		struct TransformComponent 
-		{
-			glm::mat4 Transform;
-			TransformComponent() = default;
-			TransformComponent(const TransformComponent&) = default;
-			TransformComponent(const glm::mat4& transform)
-				:Transform(transform) {}
-			operator  glm::mat4& ()  { return Transform; }
-			operator const glm::mat4& () const { return Transform; }
-		};
-
-
-
 		entt::entity entity = m_Registry.create();
 		m_Registry.emplace<TransformComponent>(entity, glm::mat4(1.0f));
 
@@ -44,11 +28,7 @@ namespace Aurora{
 			TransformComponent& transform = m_Registry.get<TransformComponent>(entity);
 		}
 
-		auto group = m_Registry.group<TransformComponent>(entt::get<MeshComponent>);
-		for(auto entity :group)
-		{
-			auto&[transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
-		}
+		
 
 	}
 
@@ -61,5 +41,12 @@ namespace Aurora{
 	}
 	void Scene::OnUpdate(Timestep ts)
 	{
+
+		auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+		for (auto entity : group)
+		{
+			auto& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+			Renderer2D::DrawQuad(transform, sprite.Color);
+		}
 	}
 }
