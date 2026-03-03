@@ -6,20 +6,21 @@
 #include "Aurora/Core/Timestep.h"
 namespace Aurora{
 
+	class Entity;
 	class Scene
 	{
 	public:
 		Scene();
 		~Scene();
 
-		entt::entity CreateEntity();
+		Entity CreateEntity(const std::string& name=std::string());
 
-		//Temp
-		entt::registry& Reg() { return m_Registry; };
 
 		void OnUpdate(Timestep ts);
 	private:
 		entt::registry m_Registry;
+		
+		friend class Entity;
 	};
 
 

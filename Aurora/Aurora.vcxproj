@@ -177,6 +177,7 @@
     <ClInclude Include="src\Aurora\Renderer\Texture.h" />
     <ClInclude Include="src\Aurora\Renderer\VertexArray.h" />
     <ClInclude Include="src\Aurora\Scene\Components.h" />
+    <ClInclude Include="src\Aurora\Scene\Entity.h" />
     <ClInclude Include="src\Aurora\Scene\Scene.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
@@ -625,6 +626,7 @@
     <ClCompile Include="src\Aurora\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Texture.cpp" />
     <ClCompile Include="src\Aurora\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Aurora\Scene\Entity.cpp" />
     <ClCompile Include="src\Aurora\Scene\Scene.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
