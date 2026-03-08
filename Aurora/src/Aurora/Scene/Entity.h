@@ -42,7 +42,7 @@ namespace Aurora
 		}
 		operator bool() const { return (uint32_t)m_EntityHandle != 0; }
 	private:
-		entt::entity m_EntityHandle{0};
+		entt::entity m_EntityHandle{entt::null};
 		Scene* m_Scene=nullptr;
 	};
 }

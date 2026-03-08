@@ -1430,6 +1430,7 @@
     </ClInclude>
     <ClInclude Include="src\Aurora\Scene\Components.h" />
     <ClInclude Include="src\Aurora\Scene\Entity.h" />
+    <ClInclude Include="src\Aurora\Renderer\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Core\Application.cpp">

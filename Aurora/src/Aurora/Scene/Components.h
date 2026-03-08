@@ -2,11 +2,14 @@
 
 #include <glm/glm.hpp>
 
+#include "Aurora/Renderer/Camera.h"
+
 namespace Aurora{
 
 	struct TagComponent
 	{
 		std::string Tag;
+
 		TagComponent() = default;
 		TagComponent(const TagComponent&) = default;
 		TagComponent(const std::string& tag)
@@ -15,6 +18,7 @@ namespace Aurora{
 	struct TransformComponent
 	{
 		glm::mat4 Transform=glm::mat4(1.0f);
+
 		TransformComponent() = default;
 		TransformComponent(const TransformComponent&) = default;
 		TransformComponent(const glm::mat4& transform)
@@ -26,10 +30,23 @@ namespace Aurora{
 	struct SpriteRendererComponent
 	{
 		glm::vec4 Color{1.0f,1.0f,1.0f ,1.0f };
+
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const glm::vec4& color)
 			:Color(color) {}
 
+	};
+
+	struct CameraComponent
+	{
+		Camera Camera;
+
+		glm::vec4 Color{ 1.0f,1.0f,1.0f ,1.0f };
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
+		CameraComponent(const glm::mat4& projection)
+			:Camera(projection) {
+		}
 	};
 }

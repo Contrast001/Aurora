@@ -164,6 +164,7 @@
     <ClInclude Include="src\Aurora\Events\MouseEvent.h" />
     <ClInclude Include="src\Aurora\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Aurora\Renderer\Buffer.h" />
+    <ClInclude Include="src\Aurora\Renderer\Camera.h" />
     <ClInclude Include="src\Aurora\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Aurora\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Aurora\Renderer\OrthographicCamera.h" />
