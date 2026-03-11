@@ -40,13 +40,13 @@ namespace Aurora{
 
 	struct CameraComponent
 	{
-		Camera Camera;
+		Aurora::Camera Camera;
+		bool Primary = true;
 
 		glm::vec4 Color{ 1.0f,1.0f,1.0f ,1.0f };
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
 		CameraComponent(const glm::mat4& projection)
-			:Camera(projection) {
-		}
+			:Camera(projection) {}
 	};
 }

@@ -194,6 +194,8 @@ namespace Aurora
         s_Data.QuadVertexBufferPtr = nullptr;
     }
 
+    
+
     // 开始场景渲染
     // 参数：camera - 正交相机
     void Renderer2D::BeginScene(const OrthographicCamera& camera)
@@ -209,6 +211,19 @@ namespace Aurora
         s_Data.TextureSlotIndex = 1;                  // 重置纹理槽索引（0是白色纹理）
     }
 
+    void Renderer2D::BeginScene(const Camera& camera, const glm::mat4 transfom)
+    {
+        glm::mat4 viewProj = camera.GetProjection() * glm::inverse(transfom); 
+        // 绑定着色器
+        s_Data.TextureShader->Bind();
+        // 设置视图投影矩阵
+        s_Data.TextureShader->SetMat4("u_ViewProjection", viewProj);
+
+        // 重置渲染状态
+        s_Data.QuadIndexCount = 0;                    // 重置索引计数
+        s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;  // 重置顶点缓冲区写入位置
+        s_Data.TextureSlotIndex = 1;                  // 重置纹理槽索引（0是白色纹理）
+    }
     // 结束场景渲染
     // 将顶点数据上传到GPU并执行绘制
     void Renderer2D::EndScene()

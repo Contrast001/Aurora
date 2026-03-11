@@ -5,6 +5,8 @@
 #include "Texture.h"
 #include "SubTexture2D.h"
 
+#include "Aurora/Renderer/Camera.h"
+
 namespace Aurora{
 	
 	class Renderer2D
@@ -13,7 +15,8 @@ namespace Aurora{
 		static void Init();
 		static void Shutdown();
 
-		static void BeginScene(const OrthographicCamera& camera);
+		static void BeginScene(const Camera& camera,const glm::mat4 transfom);
+		static void BeginScene(const OrthographicCamera& camera);//TODO:Remove
 		static void EndScene();
 		static void Flush();
 
