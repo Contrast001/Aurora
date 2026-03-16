@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "Aurora/Renderer/Camera.h"
+#include "SceneCamera.h"
 
 namespace Aurora{
 
@@ -40,13 +40,12 @@ namespace Aurora{
 
 	struct CameraComponent
 	{
-		Aurora::Camera Camera;
+		SceneCamera Camera;
 		bool Primary = true;
+		bool FixedAspectRatio = false;
 
-		glm::vec4 Color{ 1.0f,1.0f,1.0f ,1.0f };
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
-		CameraComponent(const glm::mat4& projection)
-			:Camera(projection) {}
+
 	};
 }
